@@ -18,6 +18,19 @@ jobs:
         run: mvn -Dmaven.test.skip=true clean install
       - name: Package build
         run: zip deploy.zip target/vaccineman*.jar
+
+      - name: Get timestamp
+        uses: gerred/actions/current-time@master
+        id: current-time
+      - name: Run string replace
+        uses: frabert/replace-string-action@master
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: "${{ steps.current-time.outputs.time }}"
+          replace-with: '-'
+          flags: 'g'
+
       - name: Deploy
         uses: einaregilsson/beanstalk-deploy@v16
         with:
@@ -25,6 +38,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           application_name: java-bot-rest-api
           environment_name: prod
-          version_label: v
+          version_label: v-${{ steps.format-time.outputs.replaced }}
           region: ap-south-1
           deployment_package: deploy.zip
