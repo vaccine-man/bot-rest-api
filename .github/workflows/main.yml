@@ -15,8 +15,8 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build
-        run: mvn clean install
-      - name: Generate Deployment Package
+        run: mvn -Dmaven.test.skip=true clean install
+      - name: Package build
         run: zip deploy.zip target/vaccineman*.jar
       - name: Deploy
         uses: einaregilsson/beanstalk-deploy@v16
