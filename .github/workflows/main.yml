@@ -18,9 +18,6 @@ jobs:
         run: mvn clean install
       - name: Generate Deployment Package
         run: zip deploy.zip target/vaccineman*.jar
-      - name: Get timestamp
-          uses: gerred/actions/current-time@master
-          id: current-time
       - name: Deploy
           uses: einaregilsson/beanstalk-deploy@v16
           with:
