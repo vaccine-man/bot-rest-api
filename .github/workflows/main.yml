@@ -19,12 +19,12 @@ jobs:
       - name: Generate Deployment Package
         run: zip deploy.zip target/vaccineman*.jar
       - name: Deploy
-          uses: einaregilsson/beanstalk-deploy@v16
-          with:
-            aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-            aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-            application_name: java-bot-rest-api
-            environment_name: prod
-            version_label: v
-            region: ap-south-1
-            deployment_package: deploy.zip
+        uses: einaregilsson/beanstalk-deploy@v16
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: java-bot-rest-api
+          environment_name: prod
+          version_label: v
+          region: ap-south-1
+          deployment_package: deploy.zip
