@@ -22,6 +22,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 public class UserService {
 
     private String[] tier1Pin;
+    private String[] tier2Pin;
 
     private UserRepository userRepository;
 
@@ -32,6 +33,11 @@ public class UserService {
     @Value("${cities.tiers.tier1.pin.prefix}")
     public void setTier1Pin(String[] tier1Pin) {
         this.tier1Pin = tier1Pin;
+    }
+
+    @Value("${cities.tiers.tier2.pin.prefix}")
+    public void setTier2Pin(String[] tier2Pin) {
+        this.tier2Pin = tier2Pin;
     }
 
     public void registerUser(UserCreateRequest user) {
@@ -63,10 +69,17 @@ public class UserService {
 
         List<UserResponse> responses = enrichUserResponse(activeUsers);
 
-        List<String> cityPinPrefixes =  Arrays.asList(tier1Pin);
+        List<String> cityPinPrefixes = new ArrayList<>();
+        cityPinPrefixes.addAll(Arrays.asList(tier1Pin));
+
         if(tier == 1) {
             return buildTierBasedUserResponse(cityPinPrefixes, responses, true);
+        } else if(tier == 2) {
+            cityPinPrefixes = Arrays.asList(tier2Pin);
+            return buildTierBasedUserResponse(cityPinPrefixes, responses, true);
         }
+
+        cityPinPrefixes.addAll(Arrays.asList(tier2Pin));
 
         return buildTierBasedUserResponse(cityPinPrefixes, responses, false);
     }
