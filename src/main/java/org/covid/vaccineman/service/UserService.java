@@ -72,7 +72,11 @@ public class UserService {
     }
 
     public void optOutUser(UserUpdateRequest request) {
-        userRepository.optOutUser(request.getChatId());
+        if(isEmpty(request.getPinCode())) {
+            userRepository.optOutUser(request.getChatId());
+        } else {
+            userRepository.optOutUser(request.getChatId(), request.getPinCode());
+        }
     }
 
     public void optOutUsersWithPinCode(Integer pinCode) {

@@ -14,4 +14,7 @@ public class UserUpdateRequest {
     @NotBlank(message = "chat_id cannot be blank")
     private String chatId;
 
+    @JsonProperty("pin_code")
+    private Integer pinCode;
+
 }
