@@ -20,8 +20,16 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u FROM UserEntity u WHERE u.isOptedIn=true")
     List<UserEntity> getAllActiveUsers();
 
+    @Query("SELECT u FROM UserEntity u WHERE u.chatId IN :list AND u.isOptedIn=true")
+    List<UserEntity> getAllAdminUsers(List<String> list);
+
     @Modifying
     @Query("UPDATE UserEntity u SET u.isOptedIn=false WHERE u.chatId=?1")
     @Transactional
     void optOutUser(String chatId);
+
+    @Modifying
+    @Query("UPDATE UserEntity u SET u.isOptedIn=false WHERE u.pinCode=?1")
+    @Transactional
+    void optOutUsersWithPinCode(Integer pinCode);
 }
