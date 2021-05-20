@@ -13,6 +13,15 @@ public class UserResponse {
     @JsonProperty("pin_code")
     private Integer pinCode;
 
-    @JsonProperty("chat_id")
-    private ArrayList<String> chatId;
+    private ArrayList<Users> users;
+
+    @Getter
+    @Setter
+    public static class Users {
+        @JsonProperty("chat_id")
+        private String chatId;
+
+        @JsonProperty("age_limit")
+        private Integer ageLimit;
+    }
 }

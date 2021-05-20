@@ -30,4 +30,7 @@ public class UserEntity {
     @NotNull
     @Column(name = "user_active", columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean isOptedIn;
+
+    @Column(name = "age_limit")
+    private Integer ageLimit;
 }

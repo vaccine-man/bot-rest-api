@@ -47,6 +47,7 @@ public class UserService {
             response.setPinCode(user.getPinCode());
             response.setChatId(user.getChatId());
         }
+        response.setAgeLimit(user.getAgeLimit());
         response.setIsOptedIn(TRUE);
 
         userRepository.save(response);
@@ -111,11 +112,16 @@ public class UserService {
         Map<Integer, List<UserEntity>> pinCodeMap = activeUsers.stream().collect(Collectors.groupingBy(UserEntity::getPinCode));
 
         pinCodeMap.forEach((key, value) -> {
-            List<String> chatIdList = new ArrayList<>();
-            value.stream().forEach(chat -> chatIdList.add(chat.getChatId()));
+            List<UserResponse.Users> usersList = new ArrayList<>();
+            value.stream().forEach(chat ->  {
+                UserResponse.Users user = new UserResponse.Users();
+                user.setChatId(chat.getChatId());
+                user.setAgeLimit(chat.getAgeLimit());
+                usersList.add(user);
+            });
             UserResponse user = new UserResponse();
             user.setPinCode(key);
-            user.setChatId((ArrayList<String>) chatIdList);
+            user.setUsers((ArrayList<UserResponse.Users>) usersList);
 
             responses.add(user);
         });
