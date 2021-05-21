@@ -18,6 +18,6 @@ jobs:
         run: mvn -Dmaven.test.skip=true clean install
       - name: Package
         uses: actions/upload-artifact@main
-          with:
-            name: vaccineman
-            path: target/vaccineman*.jar
+        with:
+          name: vaccineman
+          path: target/vaccineman*.jar
