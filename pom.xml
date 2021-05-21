@@ -13,6 +13,15 @@
     <version>1.4.0</version>
     <name>vaccineman</name>
     <description>Vaccineman Rest Api</description>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/vaccine-man/bot-rest-api</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <java.version>11</java.version>
     </properties>

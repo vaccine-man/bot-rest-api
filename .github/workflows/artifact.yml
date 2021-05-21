@@ -14,10 +14,14 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Build
-        run: mvn -Dmaven.test.skip=true clean install
-      - name: Package
-        uses: actions/upload-artifact@main
-        with:
-          name: vaccineman
-          path: target/vaccineman*.jar
+#      - name: Build
+#        run: mvn -Dmaven.test.skip=true clean install
+      - name: Publish to GitHub Packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+        run: mvn -Dmaven.test.skip=true deploy
+#      - name: Package
+#        uses: actions/upload-artifact@main
+#        with:
+#          name: vaccineman
+#          path: target/vaccineman*.jar
