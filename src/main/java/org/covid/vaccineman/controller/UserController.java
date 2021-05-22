@@ -57,8 +57,8 @@ public class UserController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserResponse>> getAllActiveUsers() throws ResourceNotFoundException {
-        return new ResponseEntity<>(userService.getAllActiveUsers(), HttpStatus.OK);
+    public ResponseEntity<List<String>> getAllActiveUsers() throws ResourceNotFoundException {
+        return new ResponseEntity<>(userService.getActiveUsersList(), HttpStatus.OK);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)

@@ -23,6 +23,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u FROM UserEntity u WHERE u.chatId IN :list AND u.isOptedIn=true")
     List<UserEntity> getAllAdminUsers(List<String> list);
 
+    @Query("SELECT DISTINCT u.chatId from UserEntity u where u.isOptedIn=true")
+    List<String> getActiveUsersList();
+
     @Modifying
     @Query("UPDATE UserEntity u SET u.isOptedIn=false WHERE u.chatId=?1 and u.pinCode=?2")
     @Transactional

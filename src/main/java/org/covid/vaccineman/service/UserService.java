@@ -53,6 +53,15 @@ public class UserService {
         userRepository.save(response);
     }
 
+    public List<String> getActiveUsersList() throws ResourceNotFoundException {
+        List<String> activeUsers = userRepository.getActiveUsersList();
+        if(isEmpty(activeUsers)) {
+            throw new ResourceNotFoundException("No opted in users found");
+        }
+
+        return activeUsers;
+    }
+
     public List<UserResponse> getAllActiveUsers() throws ResourceNotFoundException {
         List<UserEntity> activeUsers = userRepository.getAllActiveUsers();
         if(isEmpty(activeUsers)) {
