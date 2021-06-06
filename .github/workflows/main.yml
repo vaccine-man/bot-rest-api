@@ -14,6 +14,9 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Read project version
+        run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        id: project
       - name: Build
         run: mvn -Dmaven.test.skip=true clean package
       - name: Deploy
@@ -23,6 +26,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           application_name: vaccineman-java-bot-rest-api
           environment_name: production
-          version_label: ${{github.SHA}}
+          version_label: ${{ steps.project.outputs.version }}
           region: ap-south-1
-          deployment_package: target/vaccineman-*.jar
+          deployment_package: target/vaccineman-${{ steps.project.outputs.version }}.jar
