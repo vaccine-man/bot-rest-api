@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.covid</groupId>
     <artifactId>vaccineman</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
     <name>vaccineman</name>
     <description>Vaccineman Rest Api</description>
 

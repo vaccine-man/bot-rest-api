@@ -23,6 +23,7 @@ public class UserService {
 
     private String[] tier1Pin;
     private String[] tier2Pin;
+    private String[] adminUsers;
 
     private UserRepository userRepository;
 
@@ -38,6 +39,11 @@ public class UserService {
     @Value("${cities.tiers.tier2.pin.prefix}")
     public void setTier2Pin(String[] tier2Pin) {
         this.tier2Pin = tier2Pin;
+    }
+
+    @Value("${ADMIN_USERS}")
+    public void setAdminUsers(String[] adminUsers) {
+        this.adminUsers = adminUsers;
     }
 
     public void registerUser(UserCreateRequest user) {
@@ -98,11 +104,7 @@ public class UserService {
     }
 
     public List<UserResponse> getAllAdminUsers() {
-        List<String> admin = new ArrayList<>();
-        admin.add("994831388");
-        admin.add("536675995");
-
-        List<UserEntity> activeUsers = userRepository.getUserEntitiesByIsOptedInTrueAndChatIdIn(admin);
+        List<UserEntity> activeUsers = userRepository.getUserEntitiesByIsOptedInTrueAndChatIdIn(Arrays.asList(adminUsers));
 
         return enrichUserResponse(activeUsers);
     }
