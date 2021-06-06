@@ -15,7 +15,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build
-        run: mvn -Dmaven.test.skip=true clean install
+        run: mvn -Dmaven.test.skip=true clean package
       - name: Deploy
         uses: einaregilsson/beanstalk-deploy@v16
         with:
