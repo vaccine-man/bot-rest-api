@@ -41,7 +41,7 @@ public class UserService {
     }
 
     public void registerUser(UserCreateRequest user) {
-        UserEntity response = userRepository.getUserWithPin(user.getChatId(), user.getPinCode());
+        UserEntity response = userRepository.getUserEntityByChatIdAndPinCode(user.getChatId(), user.getPinCode());
         if(isEmpty(response)) {
             response = new UserEntity();
             response.setPinCode(user.getPinCode());
@@ -62,17 +62,8 @@ public class UserService {
         return activeUsers;
     }
 
-    public List<UserResponse> getAllActiveUsers() throws ResourceNotFoundException {
-        List<UserEntity> activeUsers = userRepository.getAllActiveUsers();
-        if(isEmpty(activeUsers)) {
-            throw new ResourceNotFoundException("No opted in users found");
-        }
-
-        return enrichUserResponse(activeUsers);
-    }
-
     public List<UserResponse> getAllActiveUsersByTierCities(Integer tier) throws ResourceNotFoundException {
-        List<UserEntity> activeUsers = userRepository.getAllActiveUsers();
+        List<UserEntity> activeUsers = userRepository.getUserEntitiesByIsOptedInTrue();
         if(isEmpty(activeUsers)) {
             throw new ResourceNotFoundException("No opted in users found");
         }
@@ -111,7 +102,7 @@ public class UserService {
         admin.add("994831388");
         admin.add("536675995");
 
-        List<UserEntity> activeUsers = userRepository.getAllAdminUsers(admin);
+        List<UserEntity> activeUsers = userRepository.getUserEntitiesByIsOptedInTrueAndChatIdIn(admin);
 
         return enrichUserResponse(activeUsers);
     }

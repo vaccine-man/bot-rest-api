@@ -17,7 +17,7 @@ public class PinCodeService {
     }
 
     public void isPinCodeValid(Integer pinCode) throws ResourceNotFoundException {
-        PinCodeEntity pinCodeEntity = repository.findByPinCode(pinCode);
+        PinCodeEntity pinCodeEntity = repository.findPinCodeEntityByPinCode(pinCode);
         if(isEmpty(pinCodeEntity)) {
             throw new ResourceNotFoundException("pin_code " + pinCode + " does not exist");
         }

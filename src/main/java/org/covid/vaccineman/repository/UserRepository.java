@@ -14,14 +14,11 @@ import java.util.List;
 @Component
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    @Query("SELECT u from UserEntity u WHERE u.chatId=?1 AND u.pinCode=?2")
-    UserEntity getUserWithPin(String chatId, Integer pinCode);
+    UserEntity getUserEntityByChatIdAndPinCode(String chatId, Integer pinCode);
 
-    @Query("SELECT u FROM UserEntity u WHERE u.isOptedIn=true")
-    List<UserEntity> getAllActiveUsers();
+    List<UserEntity> getUserEntitiesByIsOptedInTrue();
 
-    @Query("SELECT u FROM UserEntity u WHERE u.chatId IN :list AND u.isOptedIn=true")
-    List<UserEntity> getAllAdminUsers(List<String> list);
+    List<UserEntity> getUserEntitiesByIsOptedInTrueAndChatIdIn(List<String> list);
 
     @Query("SELECT DISTINCT u.chatId from UserEntity u where u.isOptedIn=true")
     List<String> getActiveUsersList();
