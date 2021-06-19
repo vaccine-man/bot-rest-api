@@ -20,8 +20,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     List<UserEntity> getUserEntitiesByIsOptedInTrueAndChatIdIn(List<String> list);
 
-    @Query("SELECT DISTINCT u.chatId from UserEntity u where u.isOptedIn=?1")
-    List<String> getUsersList(Boolean isActive);
+    @Query("SELECT DISTINCT u.chatId from UserEntity u")
+    List<String> getUsersList();
 
     @Modifying
     @Query("UPDATE UserEntity u SET u.isOptedIn=false WHERE u.chatId=?1 and u.pinCode=?2")
