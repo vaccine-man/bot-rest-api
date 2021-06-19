@@ -59,8 +59,8 @@ public class UserService {
         userRepository.save(response);
     }
 
-    public List<String> getActiveUsersList() throws ResourceNotFoundException {
-        List<String> activeUsers = userRepository.getActiveUsersList();
+    public List<String> getAllUsersList(Boolean isActive) throws ResourceNotFoundException {
+        List<String> activeUsers = userRepository.getUsersList(isActive);
         if(isEmpty(activeUsers)) {
             throw new ResourceNotFoundException("No opted in users found");
         }
